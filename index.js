@@ -35,6 +35,9 @@ const ScrollView = createReactClass({
     );
   },
   updateContentOffsetIfNeeded: function() {
+    if (Platform.OS === 'android'){
+      return;
+    }
     setTimeout(() => {
       UIManager.dispatchViewManagerCommand(
         this.getScrollableNode(),
