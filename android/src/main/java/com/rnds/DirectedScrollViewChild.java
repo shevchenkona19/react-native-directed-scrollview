@@ -28,4 +28,15 @@ public class DirectedScrollViewChild extends ReactViewGroup {
   public void setScrollDirection(final String scrollDirection) {
     this.scrollDirection = scrollDirection;
   }
+
+  @Override
+  protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+      super.onLayout(changed, left, top, right, bottom);
+
+      try {
+          ((ViewGroup) getParent()).setClipChildren(false);
+      } catch (Exception e) {
+          e.printStackTrace();
+      }
+  }
 }
