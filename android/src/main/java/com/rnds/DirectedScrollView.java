@@ -12,11 +12,9 @@ import android.view.ScaleGestureDetector;
 import android.view.animation.Interpolator;
 
 import com.facebook.react.views.scroll.ScrollEventType;
-import com.facebook.react.views.scroll.ScrollEvent;
 import com.facebook.react.uimanager.PixelUtil;
 import com.facebook.react.uimanager.events.NativeGestureUtil;
 import com.facebook.react.uimanager.UIManagerModule;
-import com.facebook.react.views.scroll.ReactScrollViewHelper;
 import com.facebook.react.views.view.ReactViewGroup;
 import com.facebook.react.bridge.ReactContext;
 
@@ -397,7 +395,7 @@ public class DirectedScrollView extends ReactViewGroup {
     float xVelocity,
     float yVelocity) {
     reactContext.getNativeModule(UIManagerModule.class).getEventDispatcher().dispatchEvent(
-      ScrollEvent.obtain(
+      DirectedScrollEvent.obtain(
         getId(),
         scrollEventType,
         Math.round(scrollX * -1),
@@ -407,7 +405,8 @@ public class DirectedScrollView extends ReactViewGroup {
         Math.round(getContentContainerWidth()),
         Math.round(getContentContainerHeight()),
         getWidth(),
-        getHeight()));
+        getHeight(),
+        scaleFactor));
   }
 
   public void setMaximumZoomScale(final float maximumZoomScale) {
@@ -448,5 +447,9 @@ public class DirectedScrollView extends ReactViewGroup {
     scrollY = -convertedY;
 
     translateChildren(animated);
+  }
+
+  public void setScaleFactor(double zoomScale) {
+    scaleFactor = (float) zoomScale;
   }
 }
