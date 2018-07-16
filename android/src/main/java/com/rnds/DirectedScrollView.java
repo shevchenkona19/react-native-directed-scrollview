@@ -154,7 +154,9 @@ public class DirectedScrollView extends ReactViewGroup {
       public boolean onScaleBegin(ScaleGestureDetector detector) {
         float x = detector.getFocusX();
         float y = detector.getFocusY();
-        pivotChildren(x, y);
+        if (scaleFactor == minimumZoomScale) {
+          pivotChildren(x, y);
+        }
         updateChildren();
         return true;
       }
